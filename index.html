@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pokémon Stock HQ</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--text:#16181d;--muted:#68707d;--line:#e4e7ec;--green:#16834b;--amber:#b56a00;--red:#c43d3d;--blue:#3867d6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
+header{background:#111827;color:white;padding:22px 18px 18px;position:sticky;top:0;z-index:5}h1{font-size:25px;margin:0 0 4px}.sub{color:#b9c0cc;font-size:13px}
+.wrap{max-width:850px;margin:auto;padding:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}.num{font-size:22px;font-weight:750}.lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.toolbar{display:flex;gap:8px;margin-bottom:12px}.toolbar input,.toolbar select{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:white}
+.group{margin:18px 0 8px;font-size:13px;font-weight:750;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.item{background:white;border:1px solid var(--line);border-radius:15px;padding:13px;margin:8px 0;display:grid;grid-template-columns:1fr auto;gap:10px}
+.name{font-weight:700;font-size:15px}.retailer{font-size:12px;color:var(--muted);margin-top:3px}.meta{font-size:11px;color:var(--muted);margin-top:8px}
+.badge{display:inline-block;padding:5px 8px;border-radius:999px;font-size:11px;font-weight:750}.in{background:#e7f7ee;color:var(--green)}.soon{background:#fff4df;color:var(--amber)}.out{background:#fbeaea;color:var(--red)}.unknown{background:#eef1f5;color:#5c6470}
+.actions{display:flex;align-items:center;gap:7px;justify-content:flex-end}.open{border:0;background:#111827;color:white;border-radius:9px;padding:8px 10px;font-size:12px;text-decoration:none}.empty{padding:25px;text-align:center;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:25px}
+@media(max-width:520px){.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:10px}.num{font-size:19px}.item{grid-template-columns:1fr}.actions{justify-content:space-between}}
+</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#111827">
+<link rel="icon" href="icon.svg">
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));}</script>
+</head>
+<body>
+<header><div class="wrap"><h1>🎯 Pokémon Stock HQ</h1><div class="sub">30th Celebration · Ascended Heroes · Destined Rivals</div></div></header>
+<main class="wrap">
+<section class="stats">
+<div class="stat"><div class="num" id="inCount">0</div><div class="lbl">IN STOCK</div></div>
+<div class="stat"><div class="num" id="soonCount">0</div><div class="lbl">COMING SOON</div></div>
+<div class="stat"><div class="num" id="outCount">0</div><div class="lbl">SOLD OUT</div></div>
+</section>
+<div class="toolbar"><input id="search" placeholder="Search product or retailer…"><select id="filter"><option value="all">All</option><option value="in">In stock</option><option value="soon">Coming soon</option><option value="out">Sold out</option></select></div>
+<div id="list"></div>
+<footer>Stock shown here is a tracker view. Retailer checkout, queues and CAPTCHAs remain manual.</footer>
+</main>
+<script>
+const data = [
+["30th Celebration ETB","Smyths","in","https://www.smythstoys.com/uk/en-gb/toys/action-figures-and-playsets/pokemon-toys/pokemon-trading-card-game-tcg/pokemon-trading-card-game-tcg-30th-celebration-elite-trainer-box/p/263924"],
+["30th Celebration English ETB","Japan2UK","soon","https://www.japan2uk.com/products/pokemon-30th-anniversary-english-elite-trainer-box"],
+["30th Celebration ETB","Chaos Cards","soon","https://www.chaoscards.co.uk/prod/elite-trainer-boxes-pokemon/pokemon-30th-celebration-elite-trainer-box"],
+["30th Celebration range","Magic Madhouse","soon","https://magicmadhouse.co.uk/pokemon/pokemon-sets/30th-celebration"],
+["30th Celebration range","Zatu","soon","https://zatu.com/collections/pokemon-30th-celebration"],
+["30th Celebration","Argos","soon","https://www.argos.co.uk/search/pokemon-30th-anniversary/"],
+["30th Celebration","Amazon UK","soon","https://www.amazon.co.uk/s?k=pokemon+30th+celebration"],
+["30th Celebration","GAME","soon","https://www.game.co.uk/"],
+["30th Celebration","Total Cards","soon","https://www.totalcards.net/"],
+["30th Celebration","Wayland Games","soon","https://www.waylandgames.co.uk/"],
+["30th Celebration","The Card Vault","soon","https://www.thecardvault.co.uk/"],
+["30th Celebration","Unicorn Cards","soon","https://unicorncards.co.uk/"],
+["Ascended Heroes","Zatu","soon","https://zatu.com/collections/pokemon-ascended-heroes/"],
+["Ascended Heroes","Magic Madhouse","soon","https://magicmadhouse.co.uk/pokemon/pokemon-sets/ascended-heroes"],
+["Destined Rivals","Zatu","soon","https://zatu.com/collections/pokemon-destined-rivals"],
+["Destined Rivals ETB","Chaos Cards","in","https://www.chaoscards.co.uk/prod/elite-trainer-boxes-pokemon/pokemon-scarlet-violet-destined-rivals-elite-trainer-box"],
+["Destined Rivals Booster Box","Zatu","soon","https://zatu.com/products/pokemon-tcg-scarlet-violet-destined-rivals-booster-box"]
+];
+const esc=s=>s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+function render(){let q=document.querySelector("#search").value.toLowerCase(), f=document.querySelector("#filter").value;
+let a=data.filter(x=>(f==="all"||x[2]===f)&&x.slice(0,2).join(" ").toLowerCase().includes(q));
+let c={in:0,soon:0,out:0};data.forEach(x=>c[x[2]]++);
+document.querySelector("#inCount").textContent=c.in;document.querySelector("#soonCount").textContent=c.soon;document.querySelector("#outCount").textContent=c.out;
+let groups={};a.forEach(x=>(groups[x[0].split(" ")[0]]??=[]).push(x));
+document.querySelector("#list").innerHTML=a.length?a.map(x=>`<div class="item"><div><div class="name">${esc(x[0])}</div><div class="retailer">${esc(x[1])}</div><div class="meta">Last configured: ${new Date().toLocaleString([], {dateStyle:"short",timeStyle:"short"})}</div></div><div class="actions"><span class="badge ${x[2]}">${x[2]==="in"?"IN STOCK":x[2]==="soon"?"COMING SOON":"SOLD OUT"}</span><a class="open" href="${x[3]}" target="_blank" rel="noopener">Open</a></div></div>`).join(""):"<div class='empty'>Nothing matches that filter.</div>";
+}
+search.oninput=render;filter.onchange=render;render();
+</script>
+</body></html>

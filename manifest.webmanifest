@@ -1,0 +1,17 @@
+{
+  "name": "Pok\u00e9mon Stock HQ",
+  "short_name": "Stock HQ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f6f8",
+  "theme_color": "#111827",
+  "description": "Pok\u00e9mon 30th Celebration, Ascended Heroes and Destined Rivals stock tracker.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
