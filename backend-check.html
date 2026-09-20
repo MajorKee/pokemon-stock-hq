@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><title>ChaseBase Backend Check</title>
+<style>body{font-family:Arial,sans-serif;padding:40px;background:#f4fbfe;color:#17242e}
+.card{max-width:700px;margin:auto;background:white;border:1px solid #c8e0ea;border-radius:16px;padding:28px}
+.ok{color:#08783e}.bad{color:#c52218}code{background:#eef6f9;padding:3px 6px;border-radius:5px}</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script></head>
+<body><div class="card"><h1>ChaseBase backend check</h1><p id="s">Checking Supabase…</p></div>
+<script>
+(async()=>{
+ const el=document.getElementById("s");
+ try{
+  const c=supabase.createClient(CHASEBASE_CONFIG.supabaseUrl,CHASEBASE_CONFIG.supabaseAnonKey);
+  const {data,error}=await c.from("products").select("id").limit(1);
+  if(error) throw error;
+  el.className="ok";el.innerHTML="✓ Connected to Supabase and the <code>products</code> table is accessible.";
+ }catch(e){el.className="bad";el.textContent="Connection failed: "+e.message;}
+})();
+</script></body></html>
