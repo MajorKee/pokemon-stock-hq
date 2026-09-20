@@ -2985,7 +2985,7 @@ input,select,textarea{
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/config.js"></script>
+<script src="./config.js"></script>
 </head>
 <body>
 
@@ -4542,6 +4542,25 @@ function productFallbackImageV1014(p){
  return `https://images.pokemontcg.io/base1/logo.png`;
 }
 function productMoneyV1014(v){return Number.isFinite(Number(v))?"£"+Number(v).toFixed(2):null}
+function applyLiveProductsV1014(rows){
+ cbProductFeed=(rows||[]).map(r=>({
+   name:r.product_name||r.name||"Unnamed product",
+   set:r.set_name||"",
+   type:r.product_type||"Product",
+   retail:r.rrp_gbp==null?null:Number(r.rrp_gbp),
+   sold:r.last_sold_gbp==null?null:Number(r.last_sold_gbp),
+   bin:r.price_gbp==null?null:Number(r.price_gbp),
+   source:r.retailer_name||r.source||"Live feed",
+   sourceType:r.source==="ebay"?"ebay":"retailer",
+   stock:!!r.in_stock,
+   image:r.image_url||"",
+   url:r.purchase_url||"#"
+ }));
+ productPageV1014=1;
+ renderProductsV1014();
+}
+window.addEventListener("chasebase:products",e=>applyLiveProductsV1014(e.detail));
+
 function filteredProductsV1014(){
  const q=(document.getElementById("productSearchV1014")?.value||"").trim().toLowerCase();
  const type=document.getElementById("productTypeV1014")?.value||"all";
@@ -4581,6 +4600,7 @@ document.addEventListener("DOMContentLoaded",()=>{
  document.getElementById("productPrevV1014")?.addEventListener("click",()=>{if(productPageV1014>1){productPageV1014--;renderProductsV1014()}});
  document.getElementById("productNextV1014")?.addEventListener("click",()=>{const pages=Math.ceil(filteredProductsV1014().length/PRODUCT_PAGE_SIZE_V1014);if(productPageV1014<pages){productPageV1014++;renderProductsV1014()}});
  renderProductsV1014();
+ if(Array.isArray(window.cbLiveProductOffers)) applyLiveProductsV1014(window.cbLiveProductOffers);
 });
 </script><script id="v10-15-avatar-js">
 /* V10.15 — one source of truth for user avatar */
