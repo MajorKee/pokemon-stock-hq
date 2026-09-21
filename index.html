@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ChaseBase V5</title>
+<title>ChaseBase — Approved UI</title>
 <style>
 :root{
  --bg:#020b14;--bg2:#041522;--panel:#061a2a;--panel2:#092238;--line:#13577f;
@@ -2986,7 +2986,112 @@ input,select,textarea{
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
-</head>
+
+<style id="cbUiRedesignV1">
+:root{--cb-side:244px;--cb-red:#e63221;--cb-ink:#17242e;--cb-line:#dce7ed;--cb-bg:#f6f9fb}
+body{background:var(--cb-bg)!important}
+#app{display:block!important;min-height:100vh}
+.cbSideNav{position:fixed;inset:0 auto 0 0;width:var(--cb-side);z-index:3000;background:linear-gradient(180deg,#101820 0%,#14212a 100%);color:#fff;padding:20px 14px;box-sizing:border-box;display:flex;flex-direction:column;box-shadow:8px 0 28px #0b172018}
+.cbSideBrand{display:flex;align-items:center;gap:10px;padding:2px 8px 20px;border-bottom:1px solid #ffffff18;margin-bottom:16px;cursor:pointer}.cbSideBrand .miniBallV102{flex:0 0 auto}.cbSideBrand b{font-size:21px;letter-spacing:-.5px}.cbSideBrand b em{font-style:normal;color:#ff3341}.cbSideBrand small{display:block;font-size:8px;letter-spacing:1.5px;color:#aab8c1;margin-top:2px}
+.cbSideHome,.cbSideItem{width:100%;border:0;color:#eaf0f4;background:transparent;border-radius:10px;padding:11px 12px;display:flex;align-items:center;gap:12px;text-align:left;font-weight:800;cursor:pointer;margin:2px 0}.cbSideHome{background:linear-gradient(135deg,#ef172b,#df1f2d);color:#fff;margin-bottom:12px;box-shadow:0 7px 18px #e6322130}.cbSideItem:hover{background:#ffffff0d;color:#fff}.cbSideItem.active{background:#ffffff12;color:#fff}.cbSideIcon{width:24px;text-align:center;font-size:17px}.cbSideLabel{font-size:13px}.cbSideGroup{font-size:9px;letter-spacing:1.2px;color:#8999a5;padding:12px 12px 6px;border-top:1px solid #ffffff12;margin-top:8px}.cbSideFoot{margin-top:auto;text-align:center;color:#83939d;font-size:10px;letter-spacing:1.2px;padding:16px 4px 4px}.cbSideFoot .cbMascot{font-size:44px;filter:grayscale(1);opacity:.45;display:block;margin-bottom:8px}
+.main{margin-left:var(--cb-side)!important;width:calc(100% - var(--cb-side))!important;max-width:none!important;padding:0 18px 28px!important;box-sizing:border-box}
+header.top{display:none!important}
+.topNavV82{position:sticky!important;top:0!important;z-index:2500!important;margin:0 -18px 14px!important;padding:10px 18px!important;min-height:62px!important;border-radius:0!important;border-width:0 0 1px!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(12px);display:flex!important;justify-content:flex-end!important;box-shadow:0 3px 12px #17242e0d!important}
+.navBrandV102,.navPrimaryV102,.navDropV102:has(#collectionMenuV102),.navPlayV102{display:none!important}.navToolsV102{margin-left:auto!important}.navAlertV102{border-radius:10px!important}
+.view{max-width:1440px!important;margin:0 auto!important}.dashQuickNav{display:none!important}
+.dashPersonalHero{display:grid!important;grid-template-columns:minmax(0,1fr) 390px!important;gap:16px!important;align-items:stretch!important;margin-bottom:14px!important;background:transparent!important;border:0!important;padding:0!important;box-shadow:none!important}
+.dashIdentity{min-height:190px!important;border-radius:16px!important;padding:28px 30px!important;background:linear-gradient(110deg,#14212a 0%,#1c2b36 58%,#2c3b44 100%)!important;color:#fff!important;position:relative;overflow:hidden;box-shadow:0 7px 22px #17242e18!important}.dashIdentity:after{content:'⚡';position:absolute;right:36px;top:12px;font-size:118px;color:#ffd338;opacity:.9;transform:rotate(-10deg)}.dashIdentity .dashAvatar{position:absolute!important;right:88px!important;bottom:-10px!important;width:120px!important;height:120px!important;z-index:1!important;background:#fff!important}.dashIdentity>div:last-child{position:relative;z-index:2;max-width:70%}.dashIdentity h2{font-size:34px!important;color:#fff!important;margin:8px 0 6px!important}.dashIdentity p{color:#c9d4da!important;font-size:14px!important}.dashEyebrow{color:#ff4653!important}
+.dashLevelCard{border:1px solid var(--cb-line)!important;border-radius:16px!important;background:#fff!important;padding:24px!important;box-shadow:0 7px 22px #17242e0c!important;display:flex!important;flex-direction:column!important;justify-content:center!important;min-height:190px!important}.dashLevelCard>div:first-child{display:flex!important;justify-content:space-between!important;align-items:end!important}.dashLevelCard small{font-size:11px!important}.dashLevelCard b{font-size:24px!important}.dashLevelCard strong{font-size:14px!important;margin:14px 0 8px!important}.xpTrack{height:12px!important;border-radius:99px!important;background:#e8edf0!important}.xpTrack i{background:linear-gradient(90deg,#ef172b,#ff4453)!important}
+.dashPersonalGrid{gap:16px!important}.panel{border-color:var(--cb-line)!important;box-shadow:0 5px 18px #17242e0b!important}.dashSection,.dashSnapshot,.dashAchievementsCard,.dashRetailers{border-radius:14px!important}
+@media(max-width:1050px){:root{--cb-side:76px}.cbSideBrand span:last-child,.cbSideLabel,.cbSideGroup,.cbSideFoot{display:none}.cbSideBrand{justify-content:center;padding:4px 0 18px}.cbSideHome,.cbSideItem{justify-content:center;padding:12px 8px}.cbSideIcon{width:auto}.dashPersonalHero{grid-template-columns:1fr!important}.dashIdentity>div:last-child{max-width:75%}}
+@media(max-width:720px){:root{--cb-side:0px}.cbSideNav{display:none}.main{margin-left:0!important;width:100%!important;padding:0 10px 20px!important}.topNavV82{margin:0 -10px 10px!important;padding:8px 10px!important}.dashIdentity{min-height:160px!important;padding:22px!important}.dashIdentity h2{font-size:27px!important}.dashIdentity .dashAvatar{display:none!important}.dashIdentity>div:last-child{max-width:100%}.dashPersonalHero{display:block!important}.dashLevelCard{margin-top:10px!important;min-height:140px!important}}
+</style>
+<script id="cbUiRedesignV1Script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const app=document.getElementById('app'); if(!app||document.querySelector('.cbSideNav')) return;
+ const side=document.createElement('aside'); side.className='cbSideNav';
+ side.innerHTML=`<div class="cbSideBrand" onclick="go('dashboard')"><span class="miniBallV102"></span><span><b>Chase<em>Base</em></b><small>TRACK · COLLECT · CHASE · REPEAT</small></span></div>
+ <button class="cbSideHome" data-view="dashboard" onclick="go('dashboard')"><span class="cbSideIcon">⌂</span><span class="cbSideLabel">Dashboard</span></button>
+ <div class="cbSideGroup">COLLECTION</div>
+ <button class="cbSideItem" data-view="library" onclick="go('library')"><span class="cbSideIcon">▣</span><span class="cbSideLabel">My Library</span></button>
+ <button class="cbSideItem" data-view="chase" onclick="go('chase')"><span class="cbSideIcon">★</span><span class="cbSideLabel">Chase List</span></button>
+ <button class="cbSideItem" data-view="favourites" onclick="go('favourites')"><span class="cbSideIcon">♥</span><span class="cbSideLabel">Favourite Sets</span></button>
+ <button class="cbSideItem" data-view="sets" onclick="go('sets')"><span class="cbSideIcon">◆</span><span class="cbSideLabel">Browse Sets</span></button>
+ <button class="cbSideItem" data-view="whosthat" onclick="go('whosthat')"><span class="cbSideIcon">?</span><span class="cbSideLabel">Who's That Pokémon?</span></button>
+ <div class="cbSideGroup">TOOLS</div>
+ <button class="cbSideItem" data-view="stock" onclick="go('stock')"><span class="cbSideIcon">🛒</span><span class="cbSideLabel">Product Stock</span></button>
+ <button class="cbSideItem" data-view="db" onclick="go('db')"><span class="cbSideIcon">◉</span><span class="cbSideLabel">ChaseDB</span></button>
+ <button class="cbSideItem" data-view="events" onclick="go('events')"><span class="cbSideIcon">◈</span><span class="cbSideLabel">Card Events</span></button>
+ <button class="cbSideItem" data-view="alerts" onclick="go('alerts')"><span class="cbSideIcon">●</span><span class="cbSideLabel">Alerts</span></button>
+ <button class="cbSideItem" data-view="profile" onclick="go('profile')"><span class="cbSideIcon">⚙</span><span class="cbSideLabel">Profile & Settings</span></button>
+ <div class="cbSideFoot"><span class="cbMascot">◆</span>GOTTA CATCH<br>THE DEALS<br><br>UI REDESIGN V1</div>`;
+ app.prepend(side);
+ const sync=()=>{const active=document.querySelector('.view.active')?.id||'dashboard';side.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===active));};
+ new MutationObserver(sync).observe(document.querySelector('.main'),{subtree:true,attributes:true,attributeFilter:['class']}); sync();
+});
+</script>
+
+\n<style id="cbApprovedFrontEndV2">
+/* Approved ChaseBase front-end — dashboard shell */
+:root{--cb-side:254px!important;--cb-red:#ed1c2e!important;--cb-ink:#111c25!important;--cb-bg:#f4f7f9!important;--cb-border:#dce5ea!important}
+body{background:var(--cb-bg)!important;color:var(--cb-ink)!important}
+.main{margin-left:var(--cb-side)!important;width:calc(100% - var(--cb-side))!important;padding:0 18px 38px!important;max-width:none!important}
+.cbSideNav{width:var(--cb-side)!important;background:linear-gradient(180deg,#101922,#14212a)!important;border-right:0!important;padding:18px 14px!important}
+.cbSideBrand{padding:3px 8px 18px!important}.cbSideBrand b{font-size:25px!important}.cbSideBrand small{font-size:8px!important}
+.cbSideGroup{font-size:10px!important;color:#8798a4!important;margin:18px 10px 7px!important}
+.cbSideHome,.cbSideItem{font-size:14px!important;min-height:47px!important;padding:11px 13px!important;border-radius:10px!important}
+.cbSideHome.active,.cbSideItem.active{background:linear-gradient(90deg,#f21f31,#e81225)!important;color:#fff!important;box-shadow:0 7px 18px #d9152533!important}
+.cbSideIcon{font-size:19px!important;width:24px!important;text-align:center!important}
+.cbSideFoot{margin-top:auto!important;color:#7f929e!important;text-align:center!important;font-size:10px!important;letter-spacing:1.7px!important}
+/* top utility bar */
+.top{height:76px!important;min-height:76px!important;background:#fff!important;border:1px solid var(--cb-border)!important;border-top:0!important;border-radius:0 0 13px 13px!important;padding:10px 16px!important;margin:0 0 14px!important;overflow:visible!important;box-shadow:0 3px 12px #17242e08!important}
+.top:after{display:none!important}.top .welcome{display:none!important}.toptools{width:100%!important;display:flex!important;justify-content:space-between!important;gap:14px!important}.toptools .search{width:min(650px,58vw)!important;max-width:650px!important;height:46px!important;border:1px solid #d9e2e7!important;background:#f5f8fa!important;color:#253746!important;border-radius:10px!important;padding:0 17px!important;box-shadow:none!important}
+.cbTopProfile{margin-left:auto;display:flex;align-items:center;gap:12px;padding:7px 11px;border-left:1px solid #e4eaee;color:#17242e}.cbTopProfile img{width:43px;height:43px;border-radius:50%;object-fit:cover;background:#e9eef1}.cbTopProfile b{display:block;font-size:14px}.cbTopProfile small{display:block;font-size:10px!important;color:#71828d}
+/* old top navigation is intentionally replaced by the sidebar */
+.topNavV82{display:none!important}.retailerDrawer{margin-left:0!important}
+/* dashboard */
+#dashboard{max-width:1500px;margin:0 auto!important}
+#dashboard .dashQuickNav{display:none!important}
+#dashboard .dashPersonalHero{display:grid!important;grid-template-columns:minmax(0,2.35fr) minmax(300px,.9fr)!important;gap:16px!important;margin:0 0 15px!important}
+#dashboard .dashIdentity{min-height:205px!important;border:0!important;border-radius:15px!important;padding:27px 30px!important;background:linear-gradient(105deg,#111c25 0%,#172733 55%,#263640 100%)!important;color:#fff!important;box-shadow:none!important;overflow:hidden!important;position:relative!important}
+#dashboard .dashIdentity:after{content:'⚡';position:absolute;right:45px;top:-26px;font-size:210px;color:#ffd33d;opacity:.95;transform:rotate(8deg);filter:drop-shadow(0 12px 16px #0003)}
+#dashboard .dashIdentity>div:last-child{position:relative;z-index:2;max-width:68%!important}
+#dashboard .dashAvatar{display:none!important}#dashboard .dashEyebrow{color:#aab8c2!important;letter-spacing:1.5px!important}#dashboard .dashIdentity h2{font-size:38px!important;line-height:1.05!important;margin:9px 0 8px!important;color:#fff!important}#dashboard .dashIdentity p{font-size:15px!important;color:#d5dee4!important;margin:0!important;max-width:600px!important}
+#dashboard .dashLevelCard{min-height:205px!important;background:#fff!important;border:1px solid var(--cb-border)!important;border-radius:15px!important;padding:24px!important;color:#17242e!important;box-shadow:0 4px 14px #17242e0a!important;justify-content:center!important}
+#dashboard .dashLevelCard small{color:#6d7e88!important;font-size:11px!important}#dashboard .dashLevelCard b{color:var(--cb-red)!important;font-size:25px!important}#dashboard .dashLevelCard strong{font-size:16px!important;color:#17242e!important}.xpTrack{height:12px!important;background:#e8edf0!important;border:0!important}.xpTrack i{background:linear-gradient(90deg,#ef172b,#ff4555)!important}
+#dashboard .dashPersonalGrid{display:grid!important;grid-template-columns:minmax(0,2.3fr) minmax(300px,.9fr)!important;gap:16px!important;align-items:start!important}
+#dashboard .dashMainColumn{display:flex!important;flex-direction:column!important;gap:15px!important}#dashboard .dashMainColumn .panel{margin:0!important}
+#dashboard .dashMainColumn .dashSection:has(#products){order:-1!important}
+#dashboard .dashSideColumn{display:flex!important;flex-direction:column!important;gap:15px!important}
+#dashboard .dashSideColumn>.panel{margin:0!important;min-height:0!important}
+.panel{background:#fff!important;color:#17242e!important;border:1px solid var(--cb-border)!important;border-radius:15px!important;box-shadow:0 4px 14px #17242e08!important}.panelhead h2{color:#17242e!important}.muted{color:#70838e!important}
+#dashboard #products{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:12px!important}
+#dashboard #products .product,#dashboard #products>div{background:#fff!important;border:1px solid #dbe4e9!important;border-radius:13px!important;color:#17242e!important;box-shadow:none!important}
+#dashboard #products .productArt,#dashboard #products .stockTopImage{background:#f4f8fa!important;border-radius:10px!important}
+#dashboard #products h3,#dashboard #products b{color:#17242e!important}#dashboard #products .price,#dashboard #products .stockTopPrice{color:#17242e!important}
+#dashboard #favrow .fav,#dashboard #favrow>button,#dashboard #favrow>div{background:#f7fafb!important;border-color:#dbe5ea!important;color:#17242e!important}
+#dashboard .dashSnapshotGrid>div{background:#f6f9fa!important;border:1px solid #e1e8ec!important;border-radius:10px!important}.dashSnapshotGrid b{color:#17242e!important}
+#dashboard .dashRetailers{background:#fff!important;color:#17242e!important}
+@media(max-width:1180px){#dashboard .dashPersonalHero,#dashboard .dashPersonalGrid{grid-template-columns:1fr!important}#dashboard #products{grid-template-columns:repeat(2,1fr)!important}.cbTopProfile{display:none!important}}
+@media(max-width:760px){.main{margin-left:0!important;width:100%!important}.cbSideNav{display:none!important}.toptools .search{width:100%!important;max-width:none!important}#dashboard #products{grid-template-columns:1fr!important}#dashboard .dashIdentity h2{font-size:30px!important}#dashboard .dashIdentity>div:last-child{max-width:82%!important}}
+</style>
+<script id="cbApprovedFrontEndV2Script">
+document.addEventListener('DOMContentLoaded',()=>{
+ const tools=document.querySelector('.toptools');
+ if(tools && !tools.querySelector('.cbTopProfile')){
+   const p=document.createElement('div');p.className='cbTopProfile';
+   p.innerHTML='<img id="cbApprovedAvatar" alt="Profile"><span><b id="cbApprovedName">Kieran</b><small>Collector profile</small></span>';
+   tools.appendChild(p);
+ }
+ const sync=()=>{
+   const n=(document.getElementById('topProfileNameV102')?.textContent||document.getElementById('welcomeName')?.textContent||'Kieran').trim();
+   const dest=document.getElementById('cbApprovedName'); if(dest) dest.textContent=n;
+   const src=document.getElementById('topProfileAvatarV102')?.src||document.getElementById('dashPersonalAvatar')?.src||'';
+   const img=document.getElementById('cbApprovedAvatar'); if(img&&src) img.src=src;
+ };
+ sync(); setTimeout(sync,500); setTimeout(sync,1500);
+});
+</script>\n</head>
 <body>
 
 <section id="auth">
